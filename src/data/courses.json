@@ -1,620 +1,332 @@
-{
-  "NODES": [
-    {
-      "id": "EGB125",
-      "row": 1,
-      "title": "EGB125",
-      "name": "Design for Manufacture",
-      "type": "major",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Explores the relationship between design, manufacturing processes, and material properties."
-    },
-    {
-      "id": "EGB121",
-      "row": 1,
-      "title": "EGB121",
-      "name": "Engineering Mechanics",
-      "type": "major",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Foundational unit in statics and mechanics of materials for analyzing structures like cranes and bridges."
-    },
-    {
-      "id": "EGB120",
-      "row": 1,
-      "title": "EGB120",
-      "name": "Foundations of Electrical Eng.",
-      "type": "major",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Introduces circuit analysis, measurement instruments, and practical applications of electrical energy."
-    },
-    {
-      "id": "MZB127",
-      "row": 1,
-      "title": "MZB127",
-      "name": "Eng. Mathematics & Statistics",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Covers multivariable calculus, differential equations, linear algebra, and statistics."
-    },
-    {
-      "id": "EGB214",
-      "row": 3,
-      "title": "EGB214",
-      "name": "Materials and Manufacturing",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Introduces engineering materials and how processing affects properties."
-    },
-    {
-      "id": "EGB314",
-      "row": 3,
-      "title": "EGB314",
-      "name": "Solid Mechanics",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Intermediate study of internal stresses and strains in solid bodies."
-    },
-    {
-      "id": "EGB323",
-      "row": 3,
-      "title": "EGB323",
-      "name": "Fluid Mechanics",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Fundamentals of fluid flows, hydrostatics, and energy/momentum equations."
-    },
-    {
-      "id": "MZB221",
-      "row": 3,
-      "title": "MZB221",
-      "name": "Advanced Eng. Mathematics",
-      "type": "ext",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Integral transforms, calculus, and linear algebra for engineering applications."
-    },
-    {
-      "id": "EGB210",
-      "row": 4,
-      "title": "EGB210",
-      "name": "Fundamentals of Mechanical Design",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Integrating mechanics, solids, fluids, and materials into systematic design."
-    },
-    {
-      "id": "EGB322",
-      "row": 4,
-      "title": "EGB322",
-      "name": "Thermodynamics",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Thermodynamic principles applied to engines, power plants, and refrigeration."
-    },
-    {
-      "id": "EGB211",
-      "row": 4,
-      "title": "EGB211",
-      "name": "Dynamics",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Motion of particles and rigid bodies for machines and vehicles."
-    },
-    {
-      "id": "Q1Q2",
-      "row": 4,
-      "title": "QUT YOU",
-      "name": "2x 6CP Options",
-      "type": "qutyou",
-      "avail": [
-        1,
-        2,
-        3
-      ],
-      "desc": "Two 6-credit point university-wide modules."
-    },
-    {
-      "id": "EGB101",
-      "row": 0,
-      "title": "EGB101",
-      "name": "Engineering Design & Prof. Practice",
-      "type": "core",
-      "avail": [
-        1,
-        2,
-        3
-      ],
-      "desc": "Introduces the engineering design process, technical analysis, and professional attributes like ethics and teamwork.",
-      "manualColIndex": 0
-    },
-    {
-      "id": "EGB102",
-      "row": 0,
-      "title": "EGB102",
-      "name": "Fundamentals of Eng. Science",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Introduces core concepts of physics and strength of materials (forces, motion, energy, stress, strain).",
-      "manualColIndex": 1
-    },
-    {
-      "id": "EGB103",
-      "row": 0,
-      "title": "EGB103",
-      "name": "Computing and Data for Engineers",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Teaches design and implementation of simple algorithms to solve engineering problems and automate tasks.",
-      "manualColIndex": 2
-    },
-    {
-      "id": "MZB125",
-      "row": 0,
-      "title": "MZB125",
-      "name": "Introductory Eng. Mathematics",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Covers elementary functions, derivatives, integrals, complex numbers, vectors, and matrices.",
-      "manualColIndex": 3
-    },
-    {
-      "id": "M3",
-      "row": 9,
-      "title": "Minor 3",
-      "name": "Minor Unit",
-      "type": "minor",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Third unit of your chosen minor.",
-      "manualColIndex": 0
-    },
-    {
-      "id": "EGH414",
-      "row": 9,
-      "title": "EGH414",
-      "name": "Stress Analysis",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Response of components to loads and use of Finite Element Method (ANSYS).",
-      "manualColIndex": 1
-    },
-    {
-      "id": "EGH421",
-      "row": 9,
-      "title": "EGH421",
-      "name": "Vibration and Control",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Analysis and control of dynamic behavior and PID controller design.",
-      "manualColIndex": 2
-    },
-    {
-      "id": "EGH490_1",
-      "row": 9,
-      "title": "EGH490-1",
-      "name": "Research Project 1",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Capstone unit involving independent research and project management.",
-      "manualColIndex": 3,
-      "cpReq": 240
-    },
-    {
-      "id": "M4",
-      "row": 10,
-      "title": "Minor 4",
-      "name": "Minor Unit",
-      "type": "minor",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Fourth unit of your chosen minor.",
-      "manualColIndex": 0
-    },
-    {
-      "id": "WIL",
-      "row": 11,
-      "title": "EGB499",
-      "name": "Work Placement Experience",
-      "type": "wil",
-      "avail": [
-        1,
-        2,
-        3
-      ],
-      "desc": "Capstone professional practice unit. Report submission after 450 hours of placement.",
-      "manualColIndex": 1,
-      "cp": 0,
-      "cpReq": 192
-    },
-    {
-      "id": "EGH422",
-      "row": 10,
-      "title": "EGH422",
-      "name": "Heat Transfer",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Fundamentals of conduction, convection, radiation, and mass diffusion.",
-      "manualColIndex": 2
-    },
-    {
-      "id": "EGH423",
-      "row": 10,
-      "title": "EGH423",
-      "name": "Fluid Dynamics",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Viscous, transient flows; pumps and turbines; CFD.",
-      "manualColIndex": 3
-    },
-    {
-      "id": "EGH490_2",
-      "row": 10,
-      "title": "EGH490-2",
-      "name": "Research Project 2",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Continuation of independent research.",
-      "manualColIndex": 4
-    },
-    {
-      "id": "EGB316",
-      "row": 6,
-      "title": "EGB316",
-      "name": "Design of Machine Elements",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Advanced design analysis using standards and Finite Element Analysis (ANSYS).",
-      "manualColIndex": 0
-    },
-    {
-      "id": "M1",
-      "row": 6,
-      "title": "Minor 1",
-      "name": "Minor Unit",
-      "type": "minor",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "First unit of your chosen minor.",
-      "manualColIndex": 1
-    },
-    {
-      "id": "EGB321",
-      "row": 6,
-      "title": "EGB321",
-      "name": "Dynamics of Machines",
-      "type": "major",
-      "avail": [
-        1
-      ],
-      "desc": "Dynamics and vibration of machines, position/velocity analysis.",
-      "manualColIndex": 2
-    },
-    {
-      "id": "Q3Q4",
-      "row": 6,
-      "title": "QUT YOU",
-      "name": "2x 6CP Options",
-      "type": "qutyou",
-      "avail": [
-        1,
-        2,
-        3
-      ],
-      "desc": "Two 6-credit point university-wide modules.",
-      "manualColIndex": 3
-    },
-    {
-      "id": "EGH420",
-      "row": 7,
-      "title": "EGH420",
-      "name": "Mechanical Systems Design",
-      "type": "major",
-      "avail": [
-        2
-      ],
-      "desc": "Final design unit analyzing complex systems (safety, ethics, sustainability).",
-      "manualColIndex": 0
-    },
-    {
-      "id": "D1",
-      "row": 7,
-      "title": "Discipline",
-      "name": "Extension Unit Option",
-      "type": "ext",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Discipline specific extension unit.",
-      "manualColIndex": 1
-    },
-    {
-      "id": "M2",
-      "row": 7,
-      "title": "Minor 2",
-      "name": "Minor Unit",
-      "type": "minor",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Second unit of your chosen minor.",
-      "manualColIndex": 2
-    },
-    {
-      "id": "EGH404",
-      "row": 7,
-      "title": "EGH404",
-      "name": "Research in Eng. Practice",
-      "type": "core",
-      "avail": [
-        1,
-        2
-      ],
-      "desc": "Engineering research methods, literature review, and data visualization.",
-      "manualColIndex": 3,
-      "cpReq": 144
-    }
-  ],
-  "EDGES": [
-    {
-      "from": "EGB101",
-      "to": "EGB125",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB102",
-      "to": "EGB125",
-      "dashed": true,
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB102",
-      "to": "EGB121",
-      "outGroup": 1,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB102",
-      "to": "EGB323",
-      "outGroup": 3,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB102",
-      "to": "EGB211",
-      "outGroup": 2,
-      "inGroup": 0
-    },
-    {
-      "from": "MZB125",
-      "to": "MZB127",
-      "outGroup": 2,
-      "inGroup": 0
-    },
-    {
-      "from": "MZB125",
-      "to": "EGB323",
-      "outGroup": 1,
-      "inGroup": 1
-    },
-    {
-      "from": "MZB125",
-      "to": "EGB314",
-      "outGroup": 0,
-      "inGroup": 1
-    },
-    {
-      "from": "EGB125",
-      "to": "EGB210",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB121",
-      "to": "EGB214",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB121",
-      "to": "EGB314",
-      "outGroup": 1,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB121",
-      "to": "EGB322",
-      "outGroup": 2,
-      "inGroup": 0
-    },
-    {
-      "from": "MZB127",
-      "to": "EGB211",
-      "outGroup": 1,
-      "inGroup": 1
-    },
-    {
-      "from": "MZB127",
-      "to": "MZB221",
-      "outGroup": 2,
-      "inGroup": 0
-    },
-    {
-      "from": "MZB127",
-      "to": "EGB322",
-      "outGroup": 0,
-      "inGroup": 1
-    },
-    {
-      "from": "EGB210",
-      "to": "EGB316",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB314",
-      "to": "EGB316",
-      "outGroup": 1,
-      "inGroup": 1
-    },
-    {
-      "from": "EGB314",
-      "to": "EGB210",
-      "outGroup": 0,
-      "inGroup": 1
-    },
-    {
-      "from": "EGB314",
-      "to": "EGH414",
-      "outGroup": 2,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB211",
-      "to": "EGB321",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB322",
-      "to": "EGH422",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB322",
-      "to": "EGH423",
-      "dashed": true,
-      "outGroup": 1,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB323",
-      "to": "EGH422",
-      "outGroup": 0,
-      "inGroup": 1
-    },
-    {
-      "from": "EGB323",
-      "to": "EGH423",
-      "outGroup": 1,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB316",
-      "to": "EGH420",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGB321",
-      "to": "EGH421",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGH404",
-      "to": "EGH490_1",
-      "outGroup": 0,
-      "inGroup": 0
-    },
-    {
-      "from": "EGH490_1",
-      "to": "EGH490_2",
-      "outGroup": 0,
-      "inGroup": 0
-    }
-  ],
-  "NODE_TYPES": {
-    "core": {
-      "bg": "#0063B9",
-      "text": "#FFFFFF",
-      "label": "Core"
-    },
-    "major": {
-      "bg": "#012A4C",
-      "text": "#FFFFFF",
-      "label": "Major"
-    },
-    "minor": {
-      "bg": "#007A78",
-      "text": "#FFFFFF",
-      "label": "Minor"
-    },
-    "ext": {
-      "bg": "#561B8D",
-      "text": "#FFFFFF",
-      "label": "Ext."
-    },
-    "qutyou": {
-      "bg": "#C7026F",
-      "text": "#FFFFFF",
-      "label": "YOU"
-    },
-    "wil": {
-      "bg": "#C05711",
-      "text": "#FFFFFF",
-      "label": "WIL"
-    }
+[
+  {
+    "id": "EGB125",
+    "name": "Design for Manufacture",
+    "title": "EGB125",
+    "type": "major",
+    "semester": [1, 2],
+    "row": 1,
+    "desc": "Explores the relationship between design, manufacturing processes, and material properties.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB121",
+    "name": "Engineering Mechanics",
+    "title": "EGB121",
+    "type": "major",
+    "semester": [1, 2],
+    "row": 1,
+    "desc": "Foundational unit in statics and mechanics of materials for analyzing structures like cranes and bridges.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB120",
+    "name": "Foundations of Electrical Eng.",
+    "title": "EGB120",
+    "type": "major",
+    "semester": [1, 2],
+    "row": 1,
+    "desc": "Introduces circuit analysis, measurement instruments, and practical applications of electrical energy.",
+    "prerequisites": []
+  },
+  {
+    "id": "MZB127",
+    "name": "Eng. Mathematics & Statistics",
+    "title": "MZB127",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 1,
+    "desc": "Covers multivariable calculus, differential equations, linear algebra, and statistics.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB214",
+    "name": "Materials and Manufacturing",
+    "title": "EGB214",
+    "type": "major",
+    "semester": [1],
+    "row": 3,
+    "desc": "Introduces engineering materials and how processing affects properties.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB314",
+    "name": "Solid Mechanics",
+    "title": "EGB314",
+    "type": "major",
+    "semester": [1],
+    "row": 3,
+    "desc": "Intermediate study of internal stresses and strains in solid bodies.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB323",
+    "name": "Fluid Mechanics",
+    "title": "EGB323",
+    "type": "major",
+    "semester": [1],
+    "row": 3,
+    "desc": "Fundamentals of fluid flows, hydrostatics, and energy/momentum equations.",
+    "prerequisites": []
+  },
+  {
+    "id": "MZB221",
+    "name": "Advanced Eng. Mathematics",
+    "title": "MZB221",
+    "type": "ext",
+    "semester": [1, 2],
+    "row": 3,
+    "desc": "Integral transforms, calculus, and linear algebra for engineering applications.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB210",
+    "name": "Fundamentals of Mechanical Design",
+    "title": "EGB210",
+    "type": "major",
+    "semester": [2],
+    "row": 4,
+    "desc": "Integrating mechanics, solids, fluids, and materials into systematic design.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB322",
+    "name": "Thermodynamics",
+    "title": "EGB322",
+    "type": "major",
+    "semester": [2],
+    "row": 4,
+    "desc": "Thermodynamic principles applied to engines, power plants, and refrigeration.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB211",
+    "name": "Dynamics",
+    "title": "EGB211",
+    "type": "major",
+    "semester": [2],
+    "row": 4,
+    "desc": "Motion of particles and rigid bodies for machines and vehicles.",
+    "prerequisites": []
+  },
+  {
+    "id": "Q1Q2",
+    "name": "2x 6CP Options",
+    "title": "QUT YOU",
+    "type": "qutyou",
+    "semester": [1, 2, 3],
+    "row": 4,
+    "desc": "Two 6-credit point university-wide modules.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB101",
+    "name": "Engineering Design & Prof. Practice",
+    "title": "EGB101",
+    "type": "core",
+    "semester": [1, 2, 3],
+    "row": 0,
+    "desc": "Introduces the engineering design process, technical analysis, and professional attributes like ethics and teamwork.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB102",
+    "name": "Fundamentals of Eng. Science",
+    "title": "EGB102",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 0,
+    "desc": "Introduces core concepts of physics and strength of materials (forces, motion, energy, stress, strain).",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB103",
+    "name": "Computing and Data for Engineers",
+    "title": "EGB103",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 0,
+    "desc": "Teaches design and implementation of simple algorithms to solve engineering problems and automate tasks.",
+    "prerequisites": []
+  },
+  {
+    "id": "MZB125",
+    "name": "Introductory Eng. Mathematics",
+    "title": "MZB125",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 0,
+    "desc": "Covers elementary functions, derivatives, integrals, complex numbers, vectors, and matrices.",
+    "prerequisites": []
+  },
+  {
+    "id": "M3",
+    "name": "Minor Unit",
+    "title": "Minor 3",
+    "type": "minor",
+    "semester": [1, 2],
+    "row": 9,
+    "desc": "Third unit of your chosen minor.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH414",
+    "name": "Stress Analysis",
+    "title": "EGH414",
+    "type": "major",
+    "semester": [1],
+    "row": 9,
+    "desc": "Response of components to loads and use of Finite Element Method (ANSYS).",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH421",
+    "name": "Vibration and Control",
+    "title": "EGH421",
+    "type": "major",
+    "semester": [1],
+    "row": 9,
+    "desc": "Analysis and control of dynamic behavior and PID controller design.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH490_1",
+    "name": "Research Project 1",
+    "title": "EGH490-1",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 9,
+    "desc": "Capstone unit involving independent research and project management.",
+    "prerequisites": []
+  },
+  {
+    "id": "M4",
+    "name": "Minor Unit",
+    "title": "Minor 4",
+    "type": "minor",
+    "semester": [1, 2],
+    "row": 10,
+    "desc": "Fourth unit of your chosen minor.",
+    "prerequisites": []
+  },
+  {
+    "id": "WIL",
+    "name": "Work Placement Experience",
+    "title": "EGB499",
+    "type": "wil",
+    "semester": [1, 2, 3],
+    "row": 11,
+    "desc": "Capstone professional practice unit. Report submission after 450 hours of placement.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH422",
+    "name": "Heat Transfer",
+    "title": "EGH422",
+    "type": "major",
+    "semester": [2],
+    "row": 10,
+    "desc": "Fundamentals of conduction, convection, radiation, and mass diffusion.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH423",
+    "name": "Fluid Dynamics",
+    "title": "EGH423",
+    "type": "major",
+    "semester": [2],
+    "row": 10,
+    "desc": "Viscous, transient flows; pumps and turbines; CFD.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH490_2",
+    "name": "Research Project 2",
+    "title": "EGH490-2",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 10,
+    "desc": "Continuation of independent research.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB316",
+    "name": "Design of Machine Elements",
+    "title": "EGB316",
+    "type": "major",
+    "semester": [1],
+    "row": 6,
+    "desc": "Advanced design analysis using standards and Finite Element Analysis (ANSYS).",
+    "prerequisites": []
+  },
+  {
+    "id": "M1",
+    "name": "Minor Unit",
+    "title": "Minor 1",
+    "type": "minor",
+    "semester": [1, 2],
+    "row": 6,
+    "desc": "First unit of your chosen minor.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGB321",
+    "name": "Dynamics of Machines",
+    "title": "EGB321",
+    "type": "major",
+    "semester": [1],
+    "row": 6,
+    "desc": "Dynamics and vibration of machines, position/velocity analysis.",
+    "prerequisites": []
+  },
+  {
+    "id": "Q3Q4",
+    "name": "2x 6CP Options",
+    "title": "QUT YOU",
+    "type": "qutyou",
+    "semester": [1, 2, 3],
+    "row": 6,
+    "desc": "Two 6-credit point university-wide modules.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH420",
+    "name": "Mechanical Systems Design",
+    "title": "EGH420",
+    "type": "major",
+    "semester": [2],
+    "row": 7,
+    "desc": "Final design unit analyzing complex systems (safety, ethics, sustainability).",
+    "prerequisites": []
+  },
+  {
+    "id": "D1",
+    "name": "Extension Unit Option",
+    "title": "Discipline",
+    "type": "ext",
+    "semester": [1, 2],
+    "row": 7,
+    "desc": "Discipline specific extension unit.",
+    "prerequisites": []
+  },
+  {
+    "id": "M2",
+    "name": "Minor Unit",
+    "title": "Minor 2",
+    "type": "minor",
+    "semester": [1, 2],
+    "row": 7,
+    "desc": "Second unit of your chosen minor.",
+    "prerequisites": []
+  },
+  {
+    "id": "EGH404",
+    "name": "Research in Eng. Practice",
+    "title": "EGH404",
+    "type": "core",
+    "semester": [1, 2],
+    "row": 7,
+    "desc": "Engineering research methods, literature review, and data visualization.",
+    "prerequisites": []
   }
-}
+]

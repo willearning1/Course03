@@ -22,7 +22,7 @@ export class State {
       selectedUnlocks: [],
       refreshManualEdits: true,
       refreshInputOutput: true,
-      refreshHorizontal: true
+      refreshHorizontal: true,
     };
 
     this.listeners = [];
@@ -58,13 +58,13 @@ export class State {
   subscribe(listener) {
     this.listeners.push(listener);
     return () => {
-      this.listeners = this.listeners.filter(l => l !== listener);
+      this.listeners = this.listeners.filter((l) => l !== listener);
     };
   }
 
   // Notify listeners
   notify() {
-    this.listeners.forEach(listener => listener(this.state));
+    this.listeners.forEach((listener) => listener(this.state));
   }
 }
 
