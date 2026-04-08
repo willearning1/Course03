@@ -32,7 +32,7 @@ export const updateEdges = () => {
   // Stratify data
   let dag;
   try {
-    const stratify = d3dag
+    const stratify = d3
       .graphStratify()
       .id((d) => d.id)
       .parentIds((d) => d.prerequisites || []);
@@ -50,7 +50,7 @@ export const updateEdges = () => {
   // The problem statement says: "For flexible units (semester [1, 2]), allow the simplex algorithm
   // to assign the layer that minimizes edge length, provided it strictly follows the rule that prerequisites
   // must precede the unit."
-  const layering = d3dag.layeringSimplex().rank((node) => {
+  const layering = d3.layeringSimplex().rank((node) => {
     // Extract original node data
     const data = node.data;
 
@@ -69,11 +69,11 @@ export const updateEdges = () => {
     return undefined;
   });
 
-  const layout = d3dag
+  const layout = d3
     .sugiyama()
     .layering(layering)
-    .decross(d3dag.decrossTwoLayer())
-    .coord(d3dag.coordQuad())
+    .decross(d3.decrossTwoLayer())
+    .coord(d3.coordQuad())
     .nodeSize([nodeWidth + 60, nodeHeight + 80]); // Adding padding
 
   // Compute Layout
