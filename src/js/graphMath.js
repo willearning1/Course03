@@ -431,131 +431,57 @@ export const refreshLayout = (
   });
 
   if (refreshHorizontal) {
-    const getTerminalCounts = getNodeTerminalCounts(newNodes, edges);
+    if (window.d3 && window.d3.dagStratify) {
+      try {
+        // 1. Build the DAG data structure required by d3-dag
+        const dagData = newNodes.map((n) => {
+          const parentIds = edges
+            .filter((e) => e.to === n.id)
+            .map((e) => e.from);
+          return { id: n.id, parentIds, row: n.row };
+        });
 
-    const calculateBarycenter = (row, direction) => {
-      const rowNodes = rowNodesMap[row];
-      if (rowNodes.length <= 1) return;
+        const stratify = d3.dagStratify();
+        const dag = stratify(dagData);
 
-      rowNodes.forEach((n) => {
-        let weightSum = 0;
-        let count = 0;
+        // 2. Configure Sugiyama Layout
+        // Use simplex layering with a custom rank bound to our existing assigned rows
+        const layering = d3.layeringSimplex().rank((n) => n.data.row);
 
-        if (direction === "down" || direction === "both") {
-          // Look at parents (edges where to === n.id)
-          const inEdges = edges.filter((e) => e.to === n.id);
-          const inGroupsCount = getTerminalCounts[n.id].inGroups.length;
+        // Use decrossOpt for optimal crossing reduction.
+        const decross = d3.decrossOpt();
 
-          inEdges.forEach((e) => {
-            const parent = newNodes.find((p) => p.id === e.from);
-            if (parent && parent.row < row) {
-              const parentRowNodes = rowNodesMap[parent.row];
-              const pIdx = parentRowNodes.indexOf(parent);
+        // Define coordinate assignment just to give distinct x values
+        const coord = d3.coordCenter();
 
-              // Terminal offset for parent
-              const outGroupsCount =
-                getTerminalCounts[parent.id].outGroups.length;
-              const outIndex = getTerminalCounts[parent.id].outGroups.indexOf(
-                e.outGroup,
-              );
-              const pTerminalOffset =
-                outGroupsCount > 0
-                  ? (outIndex + 1) / (outGroupsCount + 1) - 0.5
-                  : 0;
+        const layout = d3.sugiyama()
+          .layering(layering)
+          .decross(decross)
+          .coord(coord)
+          .nodeSize([1, 1]); // Arbitrary node size just for sorting order
 
-              // Terminal offset for child
-              const inIndex = getTerminalCounts[n.id].inGroups.indexOf(
-                e.inGroup,
-              );
-              const cTerminalOffset =
-                inGroupsCount > 0
-                  ? (inIndex + 1) / (inGroupsCount + 1) - 0.5
-                  : 0;
+        layout(dag);
 
-              weightSum += pIdx + pTerminalOffset - cTerminalOffset;
-              count++;
-            }
+        // 3. Extract sorted X coordinates to apply to our flexbox rows
+        const sortedNodesX = {};
+        for (const node of dag.nodes()) {
+          sortedNodesX[node.data.id] = node.x;
+        }
+
+        // 4. Sort rowNodesMap using the d3-dag calculated X coordinates
+        rowNodesMap.forEach((rowNodes, r) => {
+          rowNodes.sort((a, b) => {
+            const xA = sortedNodesX[a.id] !== undefined ? sortedNodesX[a.id] : 0;
+            const xB = sortedNodesX[b.id] !== undefined ? sortedNodesX[b.id] : 0;
+            return xA - xB;
           });
-        }
+        });
 
-        if (direction === "up" || direction === "both") {
-          // Look at children (edges where from === n.id)
-          const outEdges = edges.filter((e) => e.from === n.id);
-          const outGroupsCount = getTerminalCounts[n.id].outGroups.length;
-
-          outEdges.forEach((e) => {
-            const child = newNodes.find((c) => c.id === e.to);
-            if (child && child.row > row) {
-              const childRowNodes = rowNodesMap[child.row];
-              const cIdx = childRowNodes.indexOf(child);
-
-              // Terminal offset for child
-              const inGroupsCount = getTerminalCounts[child.id].inGroups.length;
-              const inIndex = getTerminalCounts[child.id].inGroups.indexOf(
-                e.inGroup,
-              );
-              const cTerminalOffset =
-                inGroupsCount > 0
-                  ? (inIndex + 1) / (inGroupsCount + 1) - 0.5
-                  : 0;
-
-              // Terminal offset for parent
-              const outIndex = getTerminalCounts[n.id].outGroups.indexOf(
-                e.outGroup,
-              );
-              const pTerminalOffset =
-                outGroupsCount > 0
-                  ? (outIndex + 1) / (outGroupsCount + 1) - 0.5
-                  : 0;
-
-              weightSum += cIdx + cTerminalOffset - pTerminalOffset;
-              count++;
-            }
-          });
-        }
-
-        n.barycenter = count > 0 ? weightSum / count : 0;
-
-        if (n.manualColIndex !== undefined) {
-          // If respecting manual edits, incorporate the current manual position as a heavy weight
-          // so it stays roughly in its designated spot, but can still adjust slightly.
-          n.barycenter = (n.barycenter + n.manualColIndex * 2) / 3;
-        }
-      });
-
-      rowNodes.sort((a, b) => {
-        // Tie breakers
-        if (Math.abs(a.barycenter - b.barycenter) < 0.01) {
-          if (
-            a.manualColIndex !== undefined &&
-            b.manualColIndex !== undefined
-          ) {
-            return a.manualColIndex - b.manualColIndex;
-          }
-          if (a.manualColIndex !== undefined) return -1;
-          if (b.manualColIndex !== undefined) return 1;
-          return nodeDegrees[b.id] - nodeDegrees[a.id];
-        }
-        return a.barycenter - b.barycenter;
-      });
-    };
-
-    // 2. Multi-pass sweeps
-    const iterations = 4;
-    for (let i = 0; i < iterations; i++) {
-      // Top-down sweep
-      for (let r = 1; r <= maxAssignedRow; r++) {
-        calculateBarycenter(r, "down");
+      } catch (err) {
+        console.error("d3-dag layout failed, falling back:", err);
       }
-      // Bottom-up sweep
-      for (let r = maxAssignedRow - 1; r >= 0; r--) {
-        calculateBarycenter(r, "up");
-      }
-    }
-
-    // Final top-down to settle
-    for (let r = 1; r <= maxAssignedRow; r++) {
-      calculateBarycenter(r, "down");
+    } else {
+      console.warn("d3-dag not found. Check if the IIFE script is loaded correctly.");
     }
   } // end if refreshHorizontal
   // Rebuild newNodes based on the final sorted rowNodesMap
