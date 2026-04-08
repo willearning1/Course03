@@ -1,0 +1,167 @@
+<!doctype html>
+<!--
+  Copyright (c) 2026 William Kao. All Rights Reserved.
+
+  The visual design, UI layout, and specific graphical elements of this software
+  are proprietary intellectual property. Unauthorized reproduction is prohibited.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EN01 Bachelor of Engineering (Honours) Mechanical 2026</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- SVG Sprite injected dynamically via JS, or we can use <use href="assets/icons/sprite.svg#icon-name"> -->
+
+    <div id="root" class="min-h-screen bg-[#FFFFFF] text-[#1C1C1C] font-sans relative flex overflow-hidden">
+
+      <!-- Container for Info Box -->
+      <div id="info-box-container"></div>
+
+      <!-- MAIN CONTENT AREA -->
+      <div class="flex-1 flex flex-col h-screen overflow-y-auto hide-scroll tech-tree-bg transition-all duration-300 ml-0">
+
+        <!-- Header / Controls -->
+        <div class="p-3 pb-2 flex flex-col md:flex-row justify-between print:justify-start items-center gap-3 bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-[#DBDBDB] shadow-sm">
+          <div>
+            <h1 class="text-xl md:text-2xl font-bold text-[#012A4C]">
+              Mechanical
+            </h1>
+            <p class="text-xs md:text-sm text-[#616161]">
+              Course units & Prerequisites
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Toolbar -->
+            <div class="print-hide-controls flex bg-[#F5F5F5] rounded-lg p-1 border border-[#DBDBDB] items-center gap-1">
+
+              <!-- Master Capacity -->
+              <span class="px-1.5 text-xs md:text-sm text-[#616161] font-semibold flex items-center">
+                unit/sem
+              </span>
+              <div class="flex gap-0.5" id="capacity-controls">
+                <!-- Buttons will be injected here -->
+              </div>
+
+              <div class="w-px h-6 bg-[#DBDBDB] mx-1"></div>
+
+              <!-- Refresh Split Button -->
+              <div class="relative flex items-center shadow-sm rounded-md h-6 md:h-8">
+                <button
+                  id="refresh-btn"
+                  class="flex items-center justify-center gap-1.5 px-2 md:px-3 text-white text-xs md:text-sm font-bold h-full transition-colors rounded-l-md"
+                  style="background-color: #16a34a;"
+                  title="Refresh Layout"
+                  onmouseover="this.style.backgroundColor='#15803d'"
+                  onmouseout="this.style.backgroundColor='#16a34a'"
+                >
+                  <svg class="w-3.5 h-3.5 md:w-4 md:h-4"><use href="assets/icons/sprite.svg#icon-refresh"></use></svg>
+                </button>
+                <div class="w-[1px] h-full" style="background-color: #166534;"></div>
+                <button
+                  id="refresh-dropdown-btn"
+                  class="flex items-center justify-center px-1 md:px-1.5 text-white h-full transition-colors rounded-r-md"
+                  style="background-color: #16a34a;"
+                  title="Refresh Options"
+                  onmouseover="this.style.backgroundColor='#15803d'"
+                  onmouseout="this.style.backgroundColor='#16a34a'"
+                >
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+
+                <!-- Refresh Options Dropdown -->
+                <div id="refresh-dropdown" class="absolute top-full left-0 mt-1.5 w-[200px] bg-white border border-[#DBDBDB] rounded-md shadow-lg z-50 hidden text-sm text-[#1C1C1C]">
+                  <div class="p-1.5 px-2.5 border-b border-[#E5E5E5] bg-[#F9FAFB] rounded-t-md">
+                    <span class="font-bold text-[10px] text-[#616161] uppercase tracking-wider">Refresh Options</span>
+                  </div>
+                  <div class="p-1.5 flex flex-col gap-1">
+                    <label class="flex items-center gap-2 cursor-pointer hover:bg-[#F5F5F5] p-1.5 rounded transition-colors">
+                      <input type="checkbox" data-action="toggle-refresh-opt" data-opt="refreshManualEdits" class="w-3.5 h-3.5 rounded border-[#DBDBDB] text-[#0066B9] focus:ring-[#0066B9] transition-shadow">
+                      <span class="text-[11px] font-semibold whitespace-nowrap">Keep Manual Edits</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer hover:bg-[#F5F5F5] p-1.5 rounded transition-colors">
+                      <input type="checkbox" data-action="toggle-refresh-opt" data-opt="refreshInputOutput" class="w-3.5 h-3.5 rounded border-[#DBDBDB] text-[#0066B9] focus:ring-[#0066B9] transition-shadow">
+                      <span class="text-[11px] font-semibold whitespace-nowrap">Optimize Input/Output</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer hover:bg-[#F5F5F5] p-1.5 rounded transition-colors">
+                      <input type="checkbox" data-action="toggle-refresh-opt" data-opt="refreshHorizontal" class="w-3.5 h-3.5 rounded border-[#DBDBDB] text-[#0066B9] focus:ring-[#0066B9] transition-shadow">
+                      <span class="text-[11px] font-semibold whitespace-nowrap">Optimize Horizontal</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-px h-6 bg-[#DBDBDB] mx-1"></div>
+
+              <!-- Action Buttons (Import, Export, Print) -->
+              <div class="flex gap-0.5">
+                <button
+                  id="import-btn"
+                  class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 bg-transparent hover:bg-[#E2E8F0] text-[#616161] rounded-md transition-colors"
+                  title="Import JSON"
+                >
+                  <svg width="18" height="18" class="w-4 h-4 md:w-[18px] md:h-[18px]"><use href="assets/icons/sprite.svg#icon-upload"></use></svg>
+                </button>
+                <button
+                  id="export-btn"
+                  class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 bg-transparent hover:bg-[#E2E8F0] text-[#616161] rounded-md transition-colors"
+                  title="Export JSON"
+                >
+                  <svg width="18" height="18" class="w-4 h-4 md:w-[18px] md:h-[18px]"><use href="assets/icons/sprite.svg#icon-download"></use></svg>
+                </button>
+                <button
+                  id="print-btn"
+                  class="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 bg-transparent hover:bg-[#E2E8F0] text-[#616161] rounded-md transition-colors"
+                  title="Print A4"
+                >
+                  <svg width="18" height="18" class="w-4 h-4 md:w-[18px] md:h-[18px]"><use href="assets/icons/sprite.svg#icon-printer"></use></svg>
+                </button>
+              </div>
+            </div>
+
+            <input type="file" id="file-input" accept=".json" class="hidden">
+
+            <!-- Legend Header -->
+            <div id="legend-container">
+              <!-- Legend items injected here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright Watermark -->
+        <div class="fixed bottom-12 left-6 origin-bottom-left -rotate-90 text-[10px] text-gray-300 font-medium tracking-wider no-print z-0 pointer-events-none select-none">
+          William Kao
+        </div>
+
+        <!-- Tree Container -->
+        <div class="p-8 pb-32 print-pb-0 flex-1 relative print-scale">
+          <div
+            id="graph-container"
+            class="max-w-[1100px] mx-auto relative"
+          >
+            <!-- SVG Lines Layer -->
+            <svg
+              id="edges-layer"
+              class="absolute inset-0 pointer-events-none"
+              style="width: 100%; height: 100%; overflow: visible;"
+            >
+              <!-- Paths injected here -->
+            </svg>
+
+            <!-- Nodes Layout Layer -->
+            <div id="nodes-layer" class="relative flex flex-col gap-12 sm:gap-16">
+              <!-- Rows and nodes injected here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS Modules will be injected here in Phase 2 -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
