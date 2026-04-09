@@ -231,6 +231,7 @@ export const refreshLayout = (
   refreshManualEdits = true,
   refreshInputOutput = true,
   refreshHorizontal = true,
+  refreshDecrossMethod = 'decrossOpt',
 ) => {
   let newNodes = [...nodes];
 
@@ -448,8 +449,8 @@ export const refreshLayout = (
         // Use simplex layering with a custom rank bound to our existing assigned rows
         const layering = d3.layeringSimplex().rank((n) => n.data.row);
 
-        // Use decrossOpt for optimal crossing reduction.
-        const decross = d3.decrossOpt();
+        // Select decross method based on user preference.
+        const decross = refreshDecrossMethod === 'decrossTwoLayer' ? d3.decrossTwoLayer() : d3.decrossOpt();
 
         // Define coordinate assignment just to give distinct x values
         const coord = d3.coordCenter();
@@ -462,11 +463,66 @@ export const refreshLayout = (
 
         layout(dag);
 
-        // 3. Extract sorted X coordinates to apply to our flexbox rows
+        // 3. Extract sorted X coordinates to apply to our flexbox rows, and extract dummy nodes
         const sortedNodesX = {};
+        const dummyNodes = [];
+        let dummyIdCounter = 0;
+
         for (const node of dag.nodes()) {
           sortedNodesX[node.data.id] = node.x;
         }
+
+        // Process edges to find dummy nodes and create placeholder nodes in our layout
+        for (const link of dag.links()) {
+          if (link.points && link.points.length > 2) {
+            // Points array includes start node, end node, and intermediate points (dummy nodes)
+            // Start at index 1 and go up to length - 2 to process only the dummy nodes
+            for (let i = 1; i < link.points.length - 1; i++) {
+               const point = link.points[i];
+               // We need to determine which row this dummy node belongs to.
+               // Since our layout ranks layers by row, the Y coordinate generally corresponds to the layer index.
+               // We can infer the row by checking the parent and child layers, or using the layer property if it exists.
+               // D3-dag Sugiyama guarantees nodes in the same layer have the same Y value.
+
+               // To find the exact row, we can map Y values to rows from real nodes.
+               // Alternatively, since rank equals row, and layer index is sequential, we can calculate it:
+               // The source node row is link.source.data.row. The target is link.target.data.row.
+               // The dummy nodes are in intermediate rows.
+               const dummyRow = link.source.data.row + i;
+
+               const dummyId = `dummy_${link.source.data.id}_${link.target.data.id}_${dummyRow}`;
+
+               const dummyNode = {
+                 id: dummyId,
+                 row: dummyRow,
+                 isDummy: true,
+                 width: 140, // Assume approximate width of a node
+                 height: 80,
+               };
+
+               sortedNodesX[dummyId] = point[0]; // point[0] is X coordinate
+               dummyNodes.push(dummyNode);
+
+               // Keep a record for terminal ordering
+               if (i === 1) {
+                  link.firstDummyId = dummyId;
+               }
+               if (i === link.points.length - 2) {
+                  link.lastDummyId = dummyId;
+               }
+            }
+          }
+        }
+
+        // Add dummy nodes to our data structures
+        newNodes.push(...dummyNodes);
+
+        dummyNodes.forEach(dummy => {
+          if (!rowNodesMap[dummy.row]) {
+             rowNodesMap[dummy.row] = [];
+          }
+          rowNodesMap[dummy.row].push(dummy);
+        });
 
         // 4. Sort rowNodesMap using the d3-dag calculated X coordinates
         rowNodesMap.forEach((rowNodes, r) => {
@@ -475,6 +531,21 @@ export const refreshLayout = (
             const xB = sortedNodesX[b.id] !== undefined ? sortedNodesX[b.id] : 0;
             return xA - xB;
           });
+        });
+
+        // Pass the calculated x positions for terminal ordering
+        newNodes.forEach(n => {
+           if (sortedNodesX[n.id] !== undefined) {
+             n._calculatedX = sortedNodesX[n.id];
+           }
+        });
+
+        edges.forEach(e => {
+           const link = dag.links().find(l => l.source.data.id === e.from && l.target.data.id === e.to);
+           if (link) {
+              if (link.firstDummyId) e._firstDummyX = sortedNodesX[link.firstDummyId];
+              if (link.lastDummyId) e._lastDummyX = sortedNodesX[link.lastDummyId];
+           }
         });
 
       } catch (err) {
@@ -525,7 +596,13 @@ export const refreshLayout = (
         // Put connections coming from higher up (earlier rows) first
         if (parentA.row !== parentB.row) return parentA.row - parentB.row;
 
-        // Then sort by horizontal index
+        // Use d3-dag calculated X coordinate (including dummy nodes if edge spans multiple rows)
+        const xA = a._lastDummyX !== undefined ? a._lastDummyX : (parentA._calculatedX !== undefined ? parentA._calculatedX : 0);
+        const xB = b._lastDummyX !== undefined ? b._lastDummyX : (parentB._calculatedX !== undefined ? parentB._calculatedX : 0);
+
+        if (xA !== xB) return xA - xB;
+
+        // Fallback to basic row index sorting
         const rowNodes = rowNodesMap[parentA.row];
         return rowNodes.indexOf(parentA) - rowNodes.indexOf(parentB);
       });
@@ -543,6 +620,12 @@ export const refreshLayout = (
         const childB = newNodes.find((n) => n.id === b.to);
 
         if (childA.row !== childB.row) return childA.row - childB.row;
+
+        // Use d3-dag calculated X coordinate
+        const xA = a._firstDummyX !== undefined ? a._firstDummyX : (childA._calculatedX !== undefined ? childA._calculatedX : 0);
+        const xB = b._firstDummyX !== undefined ? b._firstDummyX : (childB._calculatedX !== undefined ? childB._calculatedX : 0);
+
+        if (xA !== xB) return xA - xB;
 
         const rowNodes = rowNodesMap[childA.row];
         return rowNodes.indexOf(childA) - rowNodes.indexOf(childB);

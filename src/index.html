@@ -91,6 +91,15 @@
                       <input type="checkbox" data-action="toggle-refresh-opt" data-opt="refreshHorizontal" class="w-3.5 h-3.5 rounded border-[#DBDBDB] text-[#0066B9] focus:ring-[#0066B9] transition-shadow">
                       <span class="text-[11px] font-semibold whitespace-nowrap">Optimize Horizontal</span>
                     </label>
+                    <div class="mt-1 pt-1.5 border-t border-[#E5E5E5]">
+                      <label class="flex flex-col gap-1 px-1.5 cursor-pointer">
+                        <span class="text-[10px] font-semibold text-[#616161] uppercase tracking-wider">Edge Crossing Method</span>
+                        <select id="refresh-decross-method" class="w-full text-[11px] border border-[#DBDBDB] rounded p-1 focus:ring-[#0066B9] focus:border-[#0066B9] outline-none">
+                          <option value="decrossOpt">Optimal (Slower)</option>
+                          <option value="decrossTwoLayer">Two Layer (Faster)</option>
+                        </select>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

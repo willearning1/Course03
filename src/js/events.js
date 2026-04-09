@@ -29,14 +29,21 @@ export const initEvents = () => {
 
   // Controls (Refresh)
   document.getElementById('refresh-btn')?.addEventListener('click', () => {
-    const { nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal } = appState.get();
-    const newNodes = MathLogic.refreshLayout(nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal);
+    const { nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod } = appState.get();
+    const newNodes = MathLogic.refreshLayout(nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod);
     appState.set({ nodes: newNodes });
   });
 
   // Dropdown Toggle
   const dropdownBtn = document.getElementById('refresh-dropdown-btn');
   const dropdown = document.getElementById('refresh-dropdown');
+
+  const refreshDecrossMethodSelect = document.getElementById('refresh-decross-method');
+  if (refreshDecrossMethodSelect) {
+    refreshDecrossMethodSelect.addEventListener('change', (e) => {
+      appState.set({ refreshDecrossMethod: e.target.value });
+    });
+  }
 
   if (dropdownBtn && dropdown) {
     dropdownBtn.addEventListener('click', (e) => {

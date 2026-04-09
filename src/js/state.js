@@ -22,7 +22,8 @@ export class State {
       selectedUnlocks: [],
       refreshManualEdits: true,
       refreshInputOutput: true,
-      refreshHorizontal: true
+      refreshHorizontal: true,
+      refreshDecrossMethod: 'decrossOpt'
     };
 
     this.listeners = [];
