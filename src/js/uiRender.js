@@ -232,6 +232,11 @@ const renderNodes = () => {
     `;
 
     rowNodes.forEach(node => {
+      if (node.isDummy) {
+        html += `<div class="dummy-node" style="visibility: hidden; width: ${node.width || 150}px; height: ${node.height || 80}px; flex-shrink: 0; pointer-events: none;"></div>`;
+        return;
+      }
+
       const style = nodeTypes[node.type];
       const isDimmed = MathLogic.isNodeDimmed(node.id, activeNode, completed, nodes, edges);
       const isSelected = selectedNode === node.id;
