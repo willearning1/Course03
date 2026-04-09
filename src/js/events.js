@@ -29,8 +29,16 @@ export const initEvents = () => {
 
   // Controls (Refresh)
   document.getElementById('refresh-btn')?.addEventListener('click', () => {
-    const { nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod } = appState.get();
-    const newNodes = MathLogic.refreshLayout(nodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod);
+    const { nodes, originalNodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod } = appState.get();
+
+    // If not keeping manual edits, start from the pristine original nodes
+    // Otherwise, use the current nodes which might have manualRow/manualColIndex attached
+    const startingNodes = refreshManualEdits ? nodes : JSON.parse(JSON.stringify(originalNodes));
+
+    // Note: if refreshManualEdits is false, the startingNodes don't have manual edits,
+    // so we don't need to strip them inside refreshLayout.
+
+    const newNodes = MathLogic.refreshLayout(startingNodes, edges, rowPreferences, rowCapacity, refreshManualEdits, refreshInputOutput, refreshHorizontal, refreshDecrossMethod);
     appState.set({ nodes: newNodes });
   });
 

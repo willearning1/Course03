@@ -5,6 +5,7 @@ export class State {
   constructor() {
     this.state = {
       nodes: [],
+      originalNodes: [], // Keep untouched copy for resetting manual edits
       edges: [],
       nodeTypes: {},
       completed: new Set(),
@@ -31,6 +32,10 @@ export class State {
 
   // Set the entire state at once (useful for initial load)
   init(initialState) {
+    if (initialState.nodes && !initialState.originalNodes) {
+        // Deep copy to prevent reference mutation
+        initialState.originalNodes = JSON.parse(JSON.stringify(initialState.nodes));
+    }
     this.state = { ...this.state, ...initialState };
     this.notify();
   }

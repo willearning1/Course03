@@ -406,6 +406,7 @@ export const refreshLayout = (
   if (!refreshManualEdits) {
     newNodes.forEach((n) => {
       delete n.manualColIndex;
+      delete n.manualRow;
     });
   }
 
@@ -450,10 +451,13 @@ export const refreshLayout = (
         const layering = d3.layeringSimplex().rank((n) => n.data.row);
 
         // Select decross method based on user preference.
+        // d3.decrossTwoLayer() is often much better at respecting node order
+        // and keeping things less tangled than decrossOpt for complex graphs.
         const decross = refreshDecrossMethod === 'decrossTwoLayer' ? d3.decrossTwoLayer() : d3.decrossOpt();
 
-        // Define coordinate assignment just to give distinct x values
-        const coord = d3.coordCenter();
+        // Define coordinate assignment.
+        // coordSimplex() tends to make edges much straighter than coordCenter()
+        const coord = d3.coordSimplex();
 
         const layout = d3.sugiyama()
           .layering(layering)
@@ -570,16 +574,6 @@ export const refreshLayout = (
     };
   });
 
-  // We need to actually order newNodes so uiRender draws them in correct flex order
-  newNodes.sort((a, b) => {
-    if (a.row !== b.row) return a.row - b.row;
-    const aRowNodes = rowNodesMap[a.row];
-    return (
-      aRowNodes.indexOf(orderedNodes.find((n) => n.id === a.id)) -
-      aRowNodes.indexOf(orderedNodes.find((n) => n.id === b.id))
-    );
-  });
-
   // ----------------------------------------------------------------------
   // Input/Output Terminal Auto-Ordering
   // ----------------------------------------------------------------------
@@ -593,18 +587,24 @@ export const refreshLayout = (
         const parentA = newNodes.find((n) => n.id === a.from);
         const parentB = newNodes.find((n) => n.id === b.from);
 
-        // Put connections coming from higher up (earlier rows) first
-        if (parentA.row !== parentB.row) return parentA.row - parentB.row;
+        if (!parentA || !parentB) return 0;
 
         // Use d3-dag calculated X coordinate (including dummy nodes if edge spans multiple rows)
+        // If x coords are available, use them directly for terminal sorting
         const xA = a._lastDummyX !== undefined ? a._lastDummyX : (parentA._calculatedX !== undefined ? parentA._calculatedX : 0);
         const xB = b._lastDummyX !== undefined ? b._lastDummyX : (parentB._calculatedX !== undefined ? parentB._calculatedX : 0);
 
-        if (xA !== xB) return xA - xB;
+        if (xA !== xB && (xA !== 0 || xB !== 0)) return xA - xB;
+
+        // Fallback: Put connections coming from higher up (earlier rows) first
+        if (parentA.row !== parentB.row) return parentA.row - parentB.row;
 
         // Fallback to basic row index sorting
         const rowNodes = rowNodesMap[parentA.row];
-        return rowNodes.indexOf(parentA) - rowNodes.indexOf(parentB);
+        if (rowNodes) {
+            return rowNodes.indexOf(parentA) - rowNodes.indexOf(parentB);
+        }
+        return 0;
       });
 
       // Update inGroups sequentially
@@ -619,16 +619,22 @@ export const refreshLayout = (
         const childA = newNodes.find((n) => n.id === a.to);
         const childB = newNodes.find((n) => n.id === b.to);
 
-        if (childA.row !== childB.row) return childA.row - childB.row;
+        if (!childA || !childB) return 0;
 
         // Use d3-dag calculated X coordinate
         const xA = a._firstDummyX !== undefined ? a._firstDummyX : (childA._calculatedX !== undefined ? childA._calculatedX : 0);
         const xB = b._firstDummyX !== undefined ? b._firstDummyX : (childB._calculatedX !== undefined ? childB._calculatedX : 0);
 
-        if (xA !== xB) return xA - xB;
+        if (xA !== xB && (xA !== 0 || xB !== 0)) return xA - xB;
+
+        // Fallback
+        if (childA.row !== childB.row) return childA.row - childB.row;
 
         const rowNodes = rowNodesMap[childA.row];
-        return rowNodes.indexOf(childA) - rowNodes.indexOf(childB);
+        if (rowNodes) {
+            return rowNodes.indexOf(childA) - rowNodes.indexOf(childB);
+        }
+        return 0;
       });
 
       // Update outGroups sequentially
